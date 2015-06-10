@@ -1,0 +1,29 @@
+#!/bin/bash
+
+AAA() {
+ #local a;
+ a=0;
+ while [ "$*" ]; do
+  if (( ($1>0) && (a==0 || a>$1) )); then
+	a=$1;
+  fi;
+ shift;
+ done;
+ echo "$a";
+
+};
+
+ b=0;
+ c=("$@");
+ while true; do
+ SDI=$(AAA ${c[@]});
+ if ((b==SDI)); then
+      break;
+ fi;
+    ((b=SDI));
+ for ((i=0;i<${#c[@]};i++));
+ do
+     ((c[i]= (c[i]!=SDI) ? (c[i]%SDI) : SDI ));
+ done;
+done;
+echo "$SDI";
